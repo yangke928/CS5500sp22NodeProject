@@ -24,7 +24,7 @@ export default class UserDao implements UserDaoI {
         }
         return UserDao.userDao;
     }
-    
+
     private constructor() {}
 
     /**
@@ -61,7 +61,7 @@ export default class UserDao implements UserDaoI {
         UserModel.updateOne(
             {_id: uid},
             {$set: user});
-    
+
     updateUserSalaryByUsername = async (username: string, salary: number): Promise<any> =>
         UserModel.updateOne(
             {username},
@@ -82,9 +82,10 @@ export default class UserDao implements UserDaoI {
      */
     deleteAllUsers = async (): Promise<any> =>
         UserModel.deleteMany({});
-    
+
     findUserByCredentials = async (username: string, password: string): Promise<any> =>
         UserModel.findOne({username: username, password: password});
-    
+
     findUserByUsername = async (username: string): Promise<any> =>
-     
+        UserModel.findOne({username});
+};

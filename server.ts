@@ -18,9 +18,9 @@ import mongoose from "mongoose";
 
 // build the connection string
 const PROTOCOL = "mongodb+srv";
-const DB_USERNAME = process.env.DB_USERNAME;
-const DB_PASSWORD = process.env.DB_PASSWORD;
-const HOST = "cluster0.m8jeh.mongodb.net";
+const DB_USERNAME = "yangke"; //My mongodb 'tuiter' username
+const DB_PASSWORD = "mypassword"; //My mongodb 'tuiter' password
+const HOST = "cluster0.zljyz.mongodb.net";
 const DB_NAME = "myFirstDatabase";
 const DB_QUERY = "retryWrites=true&w=majority";
 const connectionString = `${PROTOCOL}://${DB_USERNAME}:${DB_PASSWORD}@${HOST}/${DB_NAME}?${DB_QUERY}`;
@@ -46,4 +46,4 @@ const likesController = LikeController.getInstance(app);
  * but use environment variable PORT on Heroku if available.
  */
 const PORT = 4000;
-app.listen(process.env.PORT || PORT);RT || PORT);
+app.listen(process.env.PORT || PORT);

@@ -28,4 +28,5 @@ export default interface User {
     accountType?: AccountType,
     maritalStatus?: MaritalStatus,
     location?: Location,
+    salary?: number
 };
