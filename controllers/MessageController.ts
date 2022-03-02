@@ -42,7 +42,7 @@ export default class MessageController implements MessageControllerI {
             .then(messages => res.json(messages));
 
     findAllMessagesSend = (req: Request, res: Response) =>
-        MessageController.messageDao.deleteAllMessageSend(req.params.uid)
+        MessageController.messageDao.findAllMessagesSend(req.params.uid)
             .then(messages => res.json(messages));
 
     userSendMessageToAnotherUser = (req: Request, res: Response) =>
