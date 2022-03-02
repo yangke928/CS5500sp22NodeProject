@@ -1,3 +1,25 @@
+/**
+ * @file Implements mongoose schema for users
+ */
+
+/**
+ * @typedef User Represents the tuit user
+ * @property {string} username The user's username, required field
+ * @property {string} username The user's password, required field
+ * @property {string} firstName The user's firstname
+ * @property {string} lastName The user's lasrname
+ * @property {string} email The user's email, required field
+ * @property {string} profilePhoto The user's profile photo
+ * @property {string} headerImage The user's header image
+ * @property {string} accountType The user's account type, default is personal
+ * @property {string} maritalStatus The user's marital status, default is single
+ * @property {string} biography The user's biography
+ * @property {date} dateOfBirth The user's birthday
+ * @property {date} joined The user's join date, default to current time
+ * @property {number[]} location Latitude and Longitude of the location
+ */
+
+
 import mongoose from "mongoose";
 import User from "../../models/users/User";
 const UserSchema = new mongoose.Schema<User>({
