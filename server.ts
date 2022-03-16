@@ -21,7 +21,7 @@ import mongoose from "mongoose";
 import FollowController from "./controllers/FollowController";
 import BookmarkController from "./controllers/BookmarkController";
 import MessageController from "./controllers/MessageController";
-
+var cors = require('cors')
 // build the connection string
 const PROTOCOL = "mongodb+srv";
 const DB_USERNAME = "yangke"; //My mongodb 'tuiter' username
@@ -35,6 +35,7 @@ mongoose.connect(connectionString);
 
 const app = express();
 app.use(express.json());
+app.use(cors());
 
 app.get('/', (req: Request, res: Response) =>
     res.send('Welcome!'));

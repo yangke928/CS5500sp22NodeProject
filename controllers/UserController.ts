@@ -136,9 +136,10 @@ export default class UserController implements UserControllerI {
     deleteUsersByUsername = (req: Request, res: Response) =>
         UserController.userDao.deleteUsersByUsername(req.params.username)
             .then(status => res.send(status));
-    
+
     login = (req: Request, res: Response) =>
-        UserController.userDao.findUserByCredentials(req.body.username, req.body.password)
+        UserController.userDao
+            .findUserByCredentials(req.body.username, req.body.password)
             .then(user => {
                 res.json(user)
             });
