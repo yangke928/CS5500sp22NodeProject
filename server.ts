@@ -34,6 +34,16 @@ const connectionString = `${PROTOCOL}://${DB_USERNAME}:${DB_PASSWORD}@${HOST}/${
 mongoose.connect(connectionString);
 
 const app = express();
+const session = require("express-session");
+let sess = {
+    secret: process.env.SECRET, cookie: {
+        secure: false }
+}
+if (process.env.ENV === 'PRODUCTION') {
+    app.set('trust proxy', 1) // trust first proxy
+    sess.cookie.secure = true // serve secure cookies
+}
+
 app.use(express.json());
 app.use(cors());
 
