@@ -21,7 +21,11 @@ import mongoose from "mongoose";
 import FollowController from "./controllers/FollowController";
 import BookmarkController from "./controllers/BookmarkController";
 import MessageController from "./controllers/MessageController";
-var cors = require('cors')
+import AuthenticationController from "./controllers/AuthenticationController";
+
+const cors = require('cors')
+
+const session = require("express-session");
 // build the connection string
 const PROTOCOL = "mongodb+srv";
 const DB_USERNAME = "yangke"; //My mongodb 'tuiter' username
@@ -34,18 +38,28 @@ const connectionString = `${PROTOCOL}://${DB_USERNAME}:${DB_PASSWORD}@${HOST}/${
 mongoose.connect(connectionString);
 
 const app = express();
-const session = require("express-session");
+app.use(cors({
+    credentials: true,
+    origin: 'http://localhost:3000'
+}));
+
 let sess = {
-    secret: process.env.SECRET, cookie: {
-        secure: false }
+    secret: 'acs',
+    saveUninitialized: true,
+    resave: true,
+    cookie: {
+        sameSite: process.env.NODE_ENV === "production" ? 'none' : 'lax',
+        secure: process.env.NODE_ENV === "production",
+    }
 }
 if (process.env.ENV === 'PRODUCTION') {
     app.set('trust proxy', 1) // trust first proxy
     sess.cookie.secure = true // serve secure cookies
 }
 
+app.use(session(sess))
+
 app.use(express.json());
-app.use(cors());
 
 app.get('/', (req: Request, res: Response) =>
     res.send('Welcome!'));
@@ -60,6 +74,7 @@ const likesController = LikeController.getInstance(app);
 const followController = FollowController.getInstance(app);
 const bookmarkController = BookmarkController.getInstance(app);
 const messageController = MessageController.getInstance(app);
+AuthenticationController(app);
 
 /**
  * Start a server listening at port 4000 locally
