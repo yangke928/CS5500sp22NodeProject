@@ -5,6 +5,7 @@
  *     <li>users</li>
  *     <li>tuits</li>
  *     <li>likes</li>
+ *      <li>dislikes</li>
  *     <li>follows</li>
  *     <li>bookmarks</li>
  *      li>messages</li>
@@ -22,6 +23,7 @@ import FollowController from "./controllers/FollowController";
 import BookmarkController from "./controllers/BookmarkController";
 import MessageController from "./controllers/MessageController";
 import AuthenticationController from "./controllers/AuthenticationController";
+import DislikeController from "./controllers/DislikeControlkler";
 
 const cors = require('cors')
 
@@ -74,6 +76,7 @@ const likesController = LikeController.getInstance(app);
 const followController = FollowController.getInstance(app);
 const bookmarkController = BookmarkController.getInstance(app);
 const messageController = MessageController.getInstance(app);
+const dislikeController = DislikeController.getInstance(app);
 AuthenticationController(app);
 
 /**

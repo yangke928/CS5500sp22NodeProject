@@ -138,4 +138,22 @@ export default class LikeController implements LikeControllerI {
             res.sendStatus(404);
         }
     }
+
+    /**
+     * Check if the user has already liked the tuit
+     * @param {Request} req Represents request from client, including the path
+     * parameter uid representing the user, and the tid representing the tuit
+     * @param {Response} res Represents response to client, including the
+     * body formatted as JSON object containing the like objects or null
+     */
+    findUserLikedTuit = async (req: Request, res: Response) => {
+        const uid = req.params.uid;
+        const tid = req.params.tid;
+        // @ts-ignore
+        const profile = req.session['profile'];
+        const userId = uid === 'me' && profile ?
+            profile._id : uid;
+        LikeController.likeDao.findUserLikesTuit(userId, tid)
+            .then(like => res.json(like));
+    }
 };
