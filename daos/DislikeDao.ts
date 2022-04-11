@@ -5,6 +5,8 @@
 import DislikeModel from "../mongoose/dislikes/DislikeModel";
 import Dislike from "../models/likes/Dislike";
 import DislikeDaoI from "../interfaces/DislikeDaoI";
+import Like from "../models/likes/Like";
+import LikeModel from "../mongoose/likes/LikeModel";
 
 /**
  * @class DislikeDao Implements Data Access Object managing data storage
@@ -25,6 +27,27 @@ export default class DislikeDao implements DislikeDaoI {
         return DislikeDao.dislikeDao;
     }
     private constructor() {}
+    /**
+     * Retrieve all users disliked the tuit from dislikes collection
+     * @param {string} tid Tuit's ID, primary key
+     * @returns Promise to be notified when the dislikes are retrieved from database
+     */
+    findAllUsersThatDislikedTuit = async (tid: string): Promise<Dislike[]> =>
+        DislikeModel
+            .find({tuit: tid})
+            .populate("dislikedBy")
+            .exec();
+
+    /**
+     * Retrieve all tuits disliked by a user from dislikes collection
+     * @param {string} tid User's ID, primary key
+     * @returns Promise to be notified when the dislikes are retrieved from database
+     */
+    findAllTuitsDislikedByUser = async (uid: string): Promise<Dislike[]> =>
+        DislikeModel
+            .find({dislikedBy: uid})
+            .populate("tuit")
+            .exec();
 
     /**
      * Inserts dislike instance into the database

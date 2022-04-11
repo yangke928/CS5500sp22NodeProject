@@ -37,6 +37,8 @@ export default class DislikeController implements DislikeControllerI {
     public static getInstance = (app: Express): DislikeController => {
         if (DislikeController.dislikeController === null) {
             DislikeController.dislikeController = new DislikeController();
+            app.get("/api/users/:uid/dislikes", DislikeController.dislikeController.findAllTuitsDislikedByUser);
+            app.get("/api/tuits/:tid/dislikes", DislikeController.dislikeController.findAllUsersThatDislikedTuit);
             app.get("/api/users/:uid/dislikes/:tid", DislikeController.dislikeController.findUserDislikedTuit);
             app.put("/api/users/:uid/dislikes/:tid", DislikeController.dislikeController.userTogglesTuitDislikes);
         }
@@ -44,6 +46,38 @@ export default class DislikeController implements DislikeControllerI {
     }
 
     private constructor() {
+    }
+    /**
+     * Retrieves all users that disliked a tuit from the database
+     * @param {Request} req Represents request from client, including the path
+     * parameter tid representing the disliked tuit
+     * @param {Response} res Represents response to client, including the
+     * body formatted as JSON arrays containing the user objects
+     */
+    findAllUsersThatDislikedTuit = (req: Request, res: Response) =>
+        DislikeController.dislikeDao.findAllUsersThatDislikedTuit(req.params.tid)
+            .then(dislikes => res.json(dislikes));
+
+    /**
+     * Retrieves all tuits disliked by a user from the database
+     * @param {Request} req Represents request from client, including the path
+     * parameter uid representing the user disliked the tuits
+     * @param {Response} res Represents response to client, including the
+     * body formatted as JSON arrays containing the tuit objects that were disliked
+     */
+    findAllTuitsDislikedByUser = (req: Request, res: Response) => {
+        const uid = req.params.uid;
+        // @ts-ignore
+        const profile = req.session['profile'];
+        const userId = uid === 'me' && profile ?
+            profile._id : uid;
+
+        DislikeController.dislikeDao.findAllTuitsDislikedByUser(userId)
+            .then(likes => {
+                const likesNonNullTuits = likes.filter(like => like.tuit);
+                const tuitsFromLikes = likesNonNullTuits.map(like => like.tuit);
+                res.json(tuitsFromLikes);
+            });
     }
 
     /**
