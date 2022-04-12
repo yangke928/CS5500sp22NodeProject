@@ -5,8 +5,6 @@
 import DislikeModel from "../mongoose/dislikes/DislikeModel";
 import Dislike from "../models/likes/Dislike";
 import DislikeDaoI from "../interfaces/DislikeDaoI";
-import Like from "../models/likes/Like";
-import LikeModel from "../mongoose/likes/LikeModel";
 
 /**
  * @class DislikeDao Implements Data Access Object managing data storage

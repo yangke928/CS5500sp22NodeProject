@@ -14,9 +14,9 @@ import TuitDao from "../daos/TuitDao";
  *     </li>
  *     <li>GET /api/tuits/:tid/dislikes to retrieve all users that disliked a tuit
  *     </li>
- *     <li>POST /api/users/:uid/dislikes/:tid to record that a user dislikes a tuit
+ *     <li>GET /api/users/:uid/dislikes/:tid to record that a user dislikes a tuit
  *     </li>
- *     <li>DELETE /api/users/:uid/dislikes/:tid to record that a user
+ *     <li>PUT /api/users/:uid/dislikes/:tid to record that a user
  *     no londer dislikes a tuit</li>
  * </ul>
  * @property {DislikeDao} dislikeDao Singleton DAO implementing dislikes CRUD operations
