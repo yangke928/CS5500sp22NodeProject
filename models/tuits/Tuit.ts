@@ -12,8 +12,8 @@
 import User from "../users/User";
 import Stats from "./Stats";
 export default interface Tuit {
-    tuit: string,
-    postedBy: User
+    tuit: String,
+    postedBy: User,
     postedOn?: Date,
     image?: String,
     youtube?: String,
