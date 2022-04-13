@@ -42,11 +42,11 @@ mongoose.connect(connectionString);
 const app = express();
 app.use(cors({
     credentials: true,
-    origin: "https://62561f752059b803cbc91b5c--zen-neumann-f42dca.netlify.app/"
+    origin: process.env.CORS_ORIGIN
 }));
 
 let sess = {
-    secret: "123",
+    secret: process.env.EXPRESS_SESSION_SECRET,
     saveUninitialized: true,
     resave: true,
     cookie: {
