@@ -42,11 +42,11 @@ mongoose.connect(connectionString);
 const app = express();
 app.use(cors({
     credentials: true,
-    origin: 'http://localhost:3000'
+    origin: "https://62561f752059b803cbc91b5c--zen-neumann-f42dca.netlify.app/"
 }));
 
 let sess = {
-    secret: 'acs',
+    secret: "123",
     saveUninitialized: true,
     resave: true,
     cookie: {
@@ -54,7 +54,7 @@ let sess = {
         secure: process.env.NODE_ENV === "production",
     }
 }
-if (process.env.ENV === 'PRODUCTION') {
+if (process.env.NODE_ENV === 'PRODUCTION') {
     app.set('trust proxy', 1) // trust first proxy
     sess.cookie.secure = true // serve secure cookies
 }
